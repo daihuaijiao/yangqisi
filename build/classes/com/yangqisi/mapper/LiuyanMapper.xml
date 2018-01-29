@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangqisi.mapper.LiuyanMapper" >
+  <resultMap id="BaseResultMap" type="com.yangqisi.pojo.Liuyan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="face" property="face" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="home" property="home" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="occation" property="occation" jdbcType="VARCHAR" />
+    <result column="laccess" property="laccess" jdbcType="VARCHAR" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="bid" property="bid" jdbcType="VARCHAR" />
+    <result column="shenhe" property="shenhe" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, username, face, qq, home, email, title, content, pic, ip, time, occation, laccess, 
+    head, bid, shenhe
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yangqisi.pojo.LiuyanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from liuyan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from liuyan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yangqisi.pojo.LiuyanExample" >
+    delete from liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yangqisi.pojo.Liuyan" >
+    insert into liuyan (id, username, face, 
+      qq, home, email, title, 
+      content, pic, ip, time, 
+      occation, laccess, head, 
+      bid, shenhe)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{face,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{home,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{occation,jdbcType=VARCHAR}, #{laccess,jdbcType=VARCHAR}, #{head,jdbcType=VARCHAR}, 
+      #{bid,jdbcType=VARCHAR}, #{shenhe,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yangqisi.pojo.Liuyan" >
+    insert into liuyan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="face != null" >
+        face,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="home != null" >
+        home,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="occation != null" >
+        occation,
+      </if>
+      <if test="laccess != null" >
+        laccess,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="shenhe != null" >
+        shenhe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="face != null" >
+        #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="home != null" >
+        #{home,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="occation != null" >
+        #{occation,jdbcType=VARCHAR},
+      </if>
+      <if test="laccess != null" >
+        #{laccess,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="shenhe != null" >
+        #{shenhe,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yangqisi.pojo.LiuyanExample" resultType="java.lang.Integer" >
+    select count(*) from liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update liuyan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.face != null" >
+        face = #{record.face,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.home != null" >
+        home = #{record.home,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.occation != null" >
+        occation = #{record.occation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.laccess != null" >
+        laccess = #{record.laccess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.head != null" >
+        head = #{record.head,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenhe != null" >
+        shenhe = #{record.shenhe,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update liuyan
+    set id = #{record.id,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      face = #{record.face,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      home = #{record.home,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      pic = #{record.pic,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      occation = #{record.occation,jdbcType=VARCHAR},
+      laccess = #{record.laccess,jdbcType=VARCHAR},
+      head = #{record.head,jdbcType=VARCHAR},
+      bid = #{record.bid,jdbcType=VARCHAR},
+      shenhe = #{record.shenhe,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yangqisi.pojo.Liuyan" >
+    update liuyan
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="face != null" >
+        face = #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="home != null" >
+        home = #{home,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="occation != null" >
+        occation = #{occation,jdbcType=VARCHAR},
+      </if>
+      <if test="laccess != null" >
+        laccess = #{laccess,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="shenhe != null" >
+        shenhe = #{shenhe,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yangqisi.pojo.Liuyan" >
+    update liuyan
+    set username = #{username,jdbcType=VARCHAR},
+      face = #{face,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      home = #{home,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      occation = #{occation,jdbcType=VARCHAR},
+      laccess = #{laccess,jdbcType=VARCHAR},
+      head = #{head,jdbcType=VARCHAR},
+      bid = #{bid,jdbcType=VARCHAR},
+      shenhe = #{shenhe,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

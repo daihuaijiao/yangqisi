@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangqisi.mapper.ReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.yangqisi.pojo.Reply" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="t_id" property="tId" jdbcType="INTEGER" />
+    <result column="r_time" property="rTime" jdbcType="TIMESTAMP" />
+    <result column="r_ip" property="rIp" jdbcType="VARCHAR" />
+    <result column="r_username" property="rUsername" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yangqisi.pojo.Reply" extends="BaseResultMap" >
+    <result column="r_content" property="rContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    r_id, t_id, r_time, r_ip, r_username
+  </sql>
+  <sql id="Blob_Column_List" >
+    r_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yangqisi.pojo.ReplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yangqisi.pojo.ReplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from reply
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reply
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yangqisi.pojo.ReplyExample" >
+    delete from reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yangqisi.pojo.Reply" >
+    insert into reply (r_id, t_id, r_time, 
+      r_ip, r_username, r_content
+      )
+    values (#{rId,jdbcType=INTEGER}, #{tId,jdbcType=INTEGER}, #{rTime,jdbcType=TIMESTAMP}, 
+      #{rIp,jdbcType=VARCHAR}, #{rUsername,jdbcType=VARCHAR}, #{rContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yangqisi.pojo.Reply" >
+    insert into reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="tId != null" >
+        t_id,
+      </if>
+      <if test="rTime != null" >
+        r_time,
+      </if>
+      <if test="rIp != null" >
+        r_ip,
+      </if>
+      <if test="rUsername != null" >
+        r_username,
+      </if>
+      <if test="rContent != null" >
+        r_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="tId != null" >
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="rTime != null" >
+        #{rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rIp != null" >
+        #{rIp,jdbcType=VARCHAR},
+      </if>
+      <if test="rUsername != null" >
+        #{rUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="rContent != null" >
+        #{rContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yangqisi.pojo.ReplyExample" resultType="java.lang.Integer" >
+    select count(*) from reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update reply
+    <set >
+      <if test="record.rId != null" >
+        r_id = #{record.rId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tId != null" >
+        t_id = #{record.tId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rTime != null" >
+        r_time = #{record.rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rIp != null" >
+        r_ip = #{record.rIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rUsername != null" >
+        r_username = #{record.rUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rContent != null" >
+        r_content = #{record.rContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update reply
+    set r_id = #{record.rId,jdbcType=INTEGER},
+      t_id = #{record.tId,jdbcType=INTEGER},
+      r_time = #{record.rTime,jdbcType=TIMESTAMP},
+      r_ip = #{record.rIp,jdbcType=VARCHAR},
+      r_username = #{record.rUsername,jdbcType=VARCHAR},
+      r_content = #{record.rContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update reply
+    set r_id = #{record.rId,jdbcType=INTEGER},
+      t_id = #{record.tId,jdbcType=INTEGER},
+      r_time = #{record.rTime,jdbcType=TIMESTAMP},
+      r_ip = #{record.rIp,jdbcType=VARCHAR},
+      r_username = #{record.rUsername,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yangqisi.pojo.Reply" >
+    update reply
+    <set >
+      <if test="tId != null" >
+        t_id = #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="rTime != null" >
+        r_time = #{rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rIp != null" >
+        r_ip = #{rIp,jdbcType=VARCHAR},
+      </if>
+      <if test="rUsername != null" >
+        r_username = #{rUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="rContent != null" >
+        r_content = #{rContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yangqisi.pojo.Reply" >
+    update reply
+    set t_id = #{tId,jdbcType=INTEGER},
+      r_time = #{rTime,jdbcType=TIMESTAMP},
+      r_ip = #{rIp,jdbcType=VARCHAR},
+      r_username = #{rUsername,jdbcType=VARCHAR},
+      r_content = #{rContent,jdbcType=LONGVARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yangqisi.pojo.Reply" >
+    update reply
+    set t_id = #{tId,jdbcType=INTEGER},
+      r_time = #{rTime,jdbcType=TIMESTAMP},
+      r_ip = #{rIp,jdbcType=VARCHAR},
+      r_username = #{rUsername,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

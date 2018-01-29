@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangqisi.mapper.PictureclassMapper" >
+  <resultMap id="BaseResultMap" type="com.yangqisi.pojo.Pictureclass" >
+    <id column="ClassID" property="classid" jdbcType="INTEGER" />
+    <result column="ClassName" property="classname" jdbcType="VARCHAR" />
+    <result column="ParentID" property="parentid" jdbcType="INTEGER" />
+    <result column="ParentPath" property="parentpath" jdbcType="VARCHAR" />
+    <result column="Depth" property="depth" jdbcType="INTEGER" />
+    <result column="RootID" property="rootid" jdbcType="INTEGER" />
+    <result column="Child" property="child" jdbcType="INTEGER" />
+    <result column="PrevID" property="previd" jdbcType="INTEGER" />
+    <result column="NextID" property="nextid" jdbcType="INTEGER" />
+    <result column="OrderID" property="orderid" jdbcType="INTEGER" />
+    <result column="Setting" property="setting" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ClassID, ClassName, ParentID, ParentPath, Depth, RootID, Child, PrevID, NextID, OrderID, 
+    Setting
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yangqisi.pojo.PictureclassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pictureclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pictureclass
+    where ClassID = #{classid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pictureclass
+    where ClassID = #{classid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yangqisi.pojo.PictureclassExample" >
+    delete from pictureclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yangqisi.pojo.Pictureclass" >
+    insert into pictureclass (ClassID, ClassName, ParentID, 
+      ParentPath, Depth, RootID, 
+      Child, PrevID, NextID, 
+      OrderID, Setting)
+    values (#{classid,jdbcType=INTEGER}, #{classname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{parentpath,jdbcType=VARCHAR}, #{depth,jdbcType=INTEGER}, #{rootid,jdbcType=INTEGER}, 
+      #{child,jdbcType=INTEGER}, #{previd,jdbcType=INTEGER}, #{nextid,jdbcType=INTEGER}, 
+      #{orderid,jdbcType=INTEGER}, #{setting,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yangqisi.pojo.Pictureclass" >
+    insert into pictureclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        ClassID,
+      </if>
+      <if test="classname != null" >
+        ClassName,
+      </if>
+      <if test="parentid != null" >
+        ParentID,
+      </if>
+      <if test="parentpath != null" >
+        ParentPath,
+      </if>
+      <if test="depth != null" >
+        Depth,
+      </if>
+      <if test="rootid != null" >
+        RootID,
+      </if>
+      <if test="child != null" >
+        Child,
+      </if>
+      <if test="previd != null" >
+        PrevID,
+      </if>
+      <if test="nextid != null" >
+        NextID,
+      </if>
+      <if test="orderid != null" >
+        OrderID,
+      </if>
+      <if test="setting != null" >
+        Setting,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="parentpath != null" >
+        #{parentpath,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        #{depth,jdbcType=INTEGER},
+      </if>
+      <if test="rootid != null" >
+        #{rootid,jdbcType=INTEGER},
+      </if>
+      <if test="child != null" >
+        #{child,jdbcType=INTEGER},
+      </if>
+      <if test="previd != null" >
+        #{previd,jdbcType=INTEGER},
+      </if>
+      <if test="nextid != null" >
+        #{nextid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="setting != null" >
+        #{setting,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yangqisi.pojo.PictureclassExample" resultType="java.lang.Integer" >
+    select count(*) from pictureclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pictureclass
+    <set >
+      <if test="record.classid != null" >
+        ClassID = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classname != null" >
+        ClassName = #{record.classname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        ParentID = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentpath != null" >
+        ParentPath = #{record.parentpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depth != null" >
+        Depth = #{record.depth,jdbcType=INTEGER},
+      </if>
+      <if test="record.rootid != null" >
+        RootID = #{record.rootid,jdbcType=INTEGER},
+      </if>
+      <if test="record.child != null" >
+        Child = #{record.child,jdbcType=INTEGER},
+      </if>
+      <if test="record.previd != null" >
+        PrevID = #{record.previd,jdbcType=INTEGER},
+      </if>
+      <if test="record.nextid != null" >
+        NextID = #{record.nextid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null" >
+        OrderID = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.setting != null" >
+        Setting = #{record.setting,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pictureclass
+    set ClassID = #{record.classid,jdbcType=INTEGER},
+      ClassName = #{record.classname,jdbcType=VARCHAR},
+      ParentID = #{record.parentid,jdbcType=INTEGER},
+      ParentPath = #{record.parentpath,jdbcType=VARCHAR},
+      Depth = #{record.depth,jdbcType=INTEGER},
+      RootID = #{record.rootid,jdbcType=INTEGER},
+      Child = #{record.child,jdbcType=INTEGER},
+      PrevID = #{record.previd,jdbcType=INTEGER},
+      NextID = #{record.nextid,jdbcType=INTEGER},
+      OrderID = #{record.orderid,jdbcType=INTEGER},
+      Setting = #{record.setting,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yangqisi.pojo.Pictureclass" >
+    update pictureclass
+    <set >
+      <if test="classname != null" >
+        ClassName = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        ParentID = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="parentpath != null" >
+        ParentPath = #{parentpath,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        Depth = #{depth,jdbcType=INTEGER},
+      </if>
+      <if test="rootid != null" >
+        RootID = #{rootid,jdbcType=INTEGER},
+      </if>
+      <if test="child != null" >
+        Child = #{child,jdbcType=INTEGER},
+      </if>
+      <if test="previd != null" >
+        PrevID = #{previd,jdbcType=INTEGER},
+      </if>
+      <if test="nextid != null" >
+        NextID = #{nextid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        OrderID = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="setting != null" >
+        Setting = #{setting,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ClassID = #{classid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yangqisi.pojo.Pictureclass" >
+    update pictureclass
+    set ClassName = #{classname,jdbcType=VARCHAR},
+      ParentID = #{parentid,jdbcType=INTEGER},
+      ParentPath = #{parentpath,jdbcType=VARCHAR},
+      Depth = #{depth,jdbcType=INTEGER},
+      RootID = #{rootid,jdbcType=INTEGER},
+      Child = #{child,jdbcType=INTEGER},
+      PrevID = #{previd,jdbcType=INTEGER},
+      NextID = #{nextid,jdbcType=INTEGER},
+      OrderID = #{orderid,jdbcType=INTEGER},
+      Setting = #{setting,jdbcType=INTEGER}
+    where ClassID = #{classid,jdbcType=INTEGER}
+  </update>
+</mapper>

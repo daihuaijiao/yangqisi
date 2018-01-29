@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangqisi.mapper.NewsclassMapper" >
+  <resultMap id="BaseResultMap" type="com.yangqisi.pojo.Newsclass" >
+    <id column="classID" property="classid" jdbcType="INTEGER" />
+    <result column="className" property="classname" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="parentID" property="parentid" jdbcType="INTEGER" />
+    <result column="parentPath" property="parentpath" jdbcType="VARCHAR" />
+    <result column="depth" property="depth" jdbcType="INTEGER" />
+    <result column="rootID" property="rootid" jdbcType="INTEGER" />
+    <result column="child" property="child" jdbcType="INTEGER" />
+    <result column="prevID" property="previd" jdbcType="INTEGER" />
+    <result column="NextID" property="nextid" jdbcType="INTEGER" />
+    <result column="orderID" property="orderid" jdbcType="INTEGER" />
+    <result column="setting" property="setting" jdbcType="INTEGER" />
+    <result column="c_show" property="cShow" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    classID, className, username, parentID, parentPath, depth, rootID, child, prevID, 
+    NextID, orderID, setting, c_show
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yangqisi.pojo.NewsclassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from newsclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from newsclass
+    where classID = #{classid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from newsclass
+    where classID = #{classid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yangqisi.pojo.NewsclassExample" >
+    delete from newsclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yangqisi.pojo.Newsclass" >
+    insert into newsclass (classID, className, username, 
+      parentID, parentPath, depth, 
+      rootID, child, prevID, 
+      NextID, orderID, setting, 
+      c_show)
+    values (#{classid,jdbcType=INTEGER}, #{classname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{parentpath,jdbcType=VARCHAR}, #{depth,jdbcType=INTEGER}, 
+      #{rootid,jdbcType=INTEGER}, #{child,jdbcType=INTEGER}, #{previd,jdbcType=INTEGER}, 
+      #{nextid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{setting,jdbcType=INTEGER}, 
+      #{cShow,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yangqisi.pojo.Newsclass" >
+    insert into newsclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        classID,
+      </if>
+      <if test="classname != null" >
+        className,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="parentid != null" >
+        parentID,
+      </if>
+      <if test="parentpath != null" >
+        parentPath,
+      </if>
+      <if test="depth != null" >
+        depth,
+      </if>
+      <if test="rootid != null" >
+        rootID,
+      </if>
+      <if test="child != null" >
+        child,
+      </if>
+      <if test="previd != null" >
+        prevID,
+      </if>
+      <if test="nextid != null" >
+        NextID,
+      </if>
+      <if test="orderid != null" >
+        orderID,
+      </if>
+      <if test="setting != null" >
+        setting,
+      </if>
+      <if test="cShow != null" >
+        c_show,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="parentpath != null" >
+        #{parentpath,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        #{depth,jdbcType=INTEGER},
+      </if>
+      <if test="rootid != null" >
+        #{rootid,jdbcType=INTEGER},
+      </if>
+      <if test="child != null" >
+        #{child,jdbcType=INTEGER},
+      </if>
+      <if test="previd != null" >
+        #{previd,jdbcType=INTEGER},
+      </if>
+      <if test="nextid != null" >
+        #{nextid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="setting != null" >
+        #{setting,jdbcType=INTEGER},
+      </if>
+      <if test="cShow != null" >
+        #{cShow,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yangqisi.pojo.NewsclassExample" resultType="java.lang.Integer" >
+    select count(*) from newsclass
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update newsclass
+    <set >
+      <if test="record.classid != null" >
+        classID = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classname != null" >
+        className = #{record.classname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        parentID = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentpath != null" >
+        parentPath = #{record.parentpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depth != null" >
+        depth = #{record.depth,jdbcType=INTEGER},
+      </if>
+      <if test="record.rootid != null" >
+        rootID = #{record.rootid,jdbcType=INTEGER},
+      </if>
+      <if test="record.child != null" >
+        child = #{record.child,jdbcType=INTEGER},
+      </if>
+      <if test="record.previd != null" >
+        prevID = #{record.previd,jdbcType=INTEGER},
+      </if>
+      <if test="record.nextid != null" >
+        NextID = #{record.nextid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null" >
+        orderID = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.setting != null" >
+        setting = #{record.setting,jdbcType=INTEGER},
+      </if>
+      <if test="record.cShow != null" >
+        c_show = #{record.cShow,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update newsclass
+    set classID = #{record.classid,jdbcType=INTEGER},
+      className = #{record.classname,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      parentID = #{record.parentid,jdbcType=INTEGER},
+      parentPath = #{record.parentpath,jdbcType=VARCHAR},
+      depth = #{record.depth,jdbcType=INTEGER},
+      rootID = #{record.rootid,jdbcType=INTEGER},
+      child = #{record.child,jdbcType=INTEGER},
+      prevID = #{record.previd,jdbcType=INTEGER},
+      NextID = #{record.nextid,jdbcType=INTEGER},
+      orderID = #{record.orderid,jdbcType=INTEGER},
+      setting = #{record.setting,jdbcType=INTEGER},
+      c_show = #{record.cShow,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yangqisi.pojo.Newsclass" >
+    update newsclass
+    <set >
+      <if test="classname != null" >
+        className = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentID = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="parentpath != null" >
+        parentPath = #{parentpath,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        depth = #{depth,jdbcType=INTEGER},
+      </if>
+      <if test="rootid != null" >
+        rootID = #{rootid,jdbcType=INTEGER},
+      </if>
+      <if test="child != null" >
+        child = #{child,jdbcType=INTEGER},
+      </if>
+      <if test="previd != null" >
+        prevID = #{previd,jdbcType=INTEGER},
+      </if>
+      <if test="nextid != null" >
+        NextID = #{nextid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        orderID = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="setting != null" >
+        setting = #{setting,jdbcType=INTEGER},
+      </if>
+      <if test="cShow != null" >
+        c_show = #{cShow,jdbcType=TINYINT},
+      </if>
+    </set>
+    where classID = #{classid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yangqisi.pojo.Newsclass" >
+    update newsclass
+    set className = #{classname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      parentID = #{parentid,jdbcType=INTEGER},
+      parentPath = #{parentpath,jdbcType=VARCHAR},
+      depth = #{depth,jdbcType=INTEGER},
+      rootID = #{rootid,jdbcType=INTEGER},
+      child = #{child,jdbcType=INTEGER},
+      prevID = #{previd,jdbcType=INTEGER},
+      NextID = #{nextid,jdbcType=INTEGER},
+      orderID = #{orderid,jdbcType=INTEGER},
+      setting = #{setting,jdbcType=INTEGER},
+      c_show = #{cShow,jdbcType=TINYINT}
+    where classID = #{classid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangqisi.mapper.FriendlinkMapper" >
+  <resultMap id="BaseResultMap" type="com.yangqisi.pojo.Friendlink" >
+    <id column="F_ID" property="fId" jdbcType="INTEGER" />
+    <result column="F_SITENAME" property="fSitename" jdbcType="VARCHAR" />
+    <result column="F_SITEADD" property="fSiteadd" jdbcType="VARCHAR" />
+    <result column="F_SITELOGO" property="fSitelogo" jdbcType="VARCHAR" />
+    <result column="F_LINKTYPE" property="fLinktype" jdbcType="VARCHAR" />
+    <result column="F_HEADSHOW" property="fHeadshow" jdbcType="TINYINT" />
+    <result column="F_RECYCLE" property="fRecycle" jdbcType="TINYINT" />
+    <result column="F_EXAMMARK" property="fExammark" jdbcType="TINYINT" />
+    <result column="F_ADDTIME" property="fAddtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    F_ID, F_SITENAME, F_SITEADD, F_SITELOGO, F_LINKTYPE, F_HEADSHOW, F_RECYCLE, F_EXAMMARK, 
+    F_ADDTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yangqisi.pojo.FriendlinkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from friendlink
+    where F_ID = #{fId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from friendlink
+    where F_ID = #{fId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yangqisi.pojo.FriendlinkExample" >
+    delete from friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yangqisi.pojo.Friendlink" >
+    insert into friendlink (F_ID, F_SITENAME, F_SITEADD, 
+      F_SITELOGO, F_LINKTYPE, F_HEADSHOW, 
+      F_RECYCLE, F_EXAMMARK, F_ADDTIME
+      )
+    values (#{fId,jdbcType=INTEGER}, #{fSitename,jdbcType=VARCHAR}, #{fSiteadd,jdbcType=VARCHAR}, 
+      #{fSitelogo,jdbcType=VARCHAR}, #{fLinktype,jdbcType=VARCHAR}, #{fHeadshow,jdbcType=TINYINT}, 
+      #{fRecycle,jdbcType=TINYINT}, #{fExammark,jdbcType=TINYINT}, #{fAddtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yangqisi.pojo.Friendlink" >
+    insert into friendlink
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fId != null" >
+        F_ID,
+      </if>
+      <if test="fSitename != null" >
+        F_SITENAME,
+      </if>
+      <if test="fSiteadd != null" >
+        F_SITEADD,
+      </if>
+      <if test="fSitelogo != null" >
+        F_SITELOGO,
+      </if>
+      <if test="fLinktype != null" >
+        F_LINKTYPE,
+      </if>
+      <if test="fHeadshow != null" >
+        F_HEADSHOW,
+      </if>
+      <if test="fRecycle != null" >
+        F_RECYCLE,
+      </if>
+      <if test="fExammark != null" >
+        F_EXAMMARK,
+      </if>
+      <if test="fAddtime != null" >
+        F_ADDTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fId != null" >
+        #{fId,jdbcType=INTEGER},
+      </if>
+      <if test="fSitename != null" >
+        #{fSitename,jdbcType=VARCHAR},
+      </if>
+      <if test="fSiteadd != null" >
+        #{fSiteadd,jdbcType=VARCHAR},
+      </if>
+      <if test="fSitelogo != null" >
+        #{fSitelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="fLinktype != null" >
+        #{fLinktype,jdbcType=VARCHAR},
+      </if>
+      <if test="fHeadshow != null" >
+        #{fHeadshow,jdbcType=TINYINT},
+      </if>
+      <if test="fRecycle != null" >
+        #{fRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="fExammark != null" >
+        #{fExammark,jdbcType=TINYINT},
+      </if>
+      <if test="fAddtime != null" >
+        #{fAddtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yangqisi.pojo.FriendlinkExample" resultType="java.lang.Integer" >
+    select count(*) from friendlink
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update friendlink
+    <set >
+      <if test="record.fId != null" >
+        F_ID = #{record.fId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fSitename != null" >
+        F_SITENAME = #{record.fSitename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fSiteadd != null" >
+        F_SITEADD = #{record.fSiteadd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fSitelogo != null" >
+        F_SITELOGO = #{record.fSitelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fLinktype != null" >
+        F_LINKTYPE = #{record.fLinktype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fHeadshow != null" >
+        F_HEADSHOW = #{record.fHeadshow,jdbcType=TINYINT},
+      </if>
+      <if test="record.fRecycle != null" >
+        F_RECYCLE = #{record.fRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="record.fExammark != null" >
+        F_EXAMMARK = #{record.fExammark,jdbcType=TINYINT},
+      </if>
+      <if test="record.fAddtime != null" >
+        F_ADDTIME = #{record.fAddtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update friendlink
+    set F_ID = #{record.fId,jdbcType=INTEGER},
+      F_SITENAME = #{record.fSitename,jdbcType=VARCHAR},
+      F_SITEADD = #{record.fSiteadd,jdbcType=VARCHAR},
+      F_SITELOGO = #{record.fSitelogo,jdbcType=VARCHAR},
+      F_LINKTYPE = #{record.fLinktype,jdbcType=VARCHAR},
+      F_HEADSHOW = #{record.fHeadshow,jdbcType=TINYINT},
+      F_RECYCLE = #{record.fRecycle,jdbcType=TINYINT},
+      F_EXAMMARK = #{record.fExammark,jdbcType=TINYINT},
+      F_ADDTIME = #{record.fAddtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yangqisi.pojo.Friendlink" >
+    update friendlink
+    <set >
+      <if test="fSitename != null" >
+        F_SITENAME = #{fSitename,jdbcType=VARCHAR},
+      </if>
+      <if test="fSiteadd != null" >
+        F_SITEADD = #{fSiteadd,jdbcType=VARCHAR},
+      </if>
+      <if test="fSitelogo != null" >
+        F_SITELOGO = #{fSitelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="fLinktype != null" >
+        F_LINKTYPE = #{fLinktype,jdbcType=VARCHAR},
+      </if>
+      <if test="fHeadshow != null" >
+        F_HEADSHOW = #{fHeadshow,jdbcType=TINYINT},
+      </if>
+      <if test="fRecycle != null" >
+        F_RECYCLE = #{fRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="fExammark != null" >
+        F_EXAMMARK = #{fExammark,jdbcType=TINYINT},
+      </if>
+      <if test="fAddtime != null" >
+        F_ADDTIME = #{fAddtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where F_ID = #{fId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yangqisi.pojo.Friendlink" >
+    update friendlink
+    set F_SITENAME = #{fSitename,jdbcType=VARCHAR},
+      F_SITEADD = #{fSiteadd,jdbcType=VARCHAR},
+      F_SITELOGO = #{fSitelogo,jdbcType=VARCHAR},
+      F_LINKTYPE = #{fLinktype,jdbcType=VARCHAR},
+      F_HEADSHOW = #{fHeadshow,jdbcType=TINYINT},
+      F_RECYCLE = #{fRecycle,jdbcType=TINYINT},
+      F_EXAMMARK = #{fExammark,jdbcType=TINYINT},
+      F_ADDTIME = #{fAddtime,jdbcType=TIMESTAMP}
+    where F_ID = #{fId,jdbcType=INTEGER}
+  </update>
+</mapper>

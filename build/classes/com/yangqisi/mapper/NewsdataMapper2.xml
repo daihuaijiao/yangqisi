@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangqisi.mapper.NewsdataMapper" >
+  <resultMap id="BaseResultMap" type="com.yangqisi.pojo.Newsdata" >
+    <id column="D_ID" property="dId" jdbcType="INTEGER" />
+    <result column="D_ClassID" property="dClassid" jdbcType="INTEGER" />
+    <result column="D_ClassName" property="dClassname" jdbcType="VARCHAR" />
+    <result column="D_Title" property="dTitle" jdbcType="VARCHAR" />
+    <result column="D_Time" property="dTime" jdbcType="TIMESTAMP" />
+    <result column="D_Author" property="dAuthor" jdbcType="VARCHAR" />
+    <result column="D_Source" property="dSource" jdbcType="VARCHAR" />
+    <result column="D_Picture" property="dPicture" jdbcType="VARCHAR" />
+    <result column="D_Editor" property="dEditor" jdbcType="VARCHAR" />
+    <result column="D_Num" property="dNum" jdbcType="INTEGER" />
+    <result column="D_Count" property="dCount" jdbcType="INTEGER" />
+    <result column="D_Recycle" property="dRecycle" jdbcType="TINYINT" />
+    <result column="D_RecycleTime" property="dRecycletime" jdbcType="TIMESTAMP" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+    <result column="descrip" property="descrip" jdbcType="VARCHAR" />
+    <result column="S_SoftDown1" property="sSoftdown1" jdbcType="VARCHAR" />
+    <result column="setorder" property="setorder" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yangqisi.pojo.NewsdataWithBLOBs" extends="BaseResultMap" >
+    <result column="D_Content" property="dContent" jdbcType="LONGVARCHAR" />
+    <result column="D_OriginalFileName" property="dOriginalfilename" jdbcType="LONGVARCHAR" />
+    <result column="D_SaveFileName" property="dSavefilename" jdbcType="LONGVARCHAR" />
+    <result column="D_SavePathFileName" property="dSavepathfilename" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    D_ID, D_ClassID, D_ClassName, D_Title, D_Time, D_Author, D_Source, D_Picture, D_Editor, 
+    D_Num, D_Count, D_Recycle, D_RecycleTime, keyword, descrip, S_SoftDown1, setorder
+  </sql>
+  <sql id="Blob_Column_List" >
+    D_Content, D_OriginalFileName, D_SaveFileName, D_SavePathFileName
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yangqisi.pojo.NewsdataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from newsdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yangqisi.pojo.NewsdataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from newsdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from newsdata
+    where D_ID = #{dId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from newsdata
+    where D_ID = #{dId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yangqisi.pojo.NewsdataExample" >
+    delete from newsdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yangqisi.pojo.NewsdataWithBLOBs" >
+    insert into newsdata (D_ID, D_ClassID, D_ClassName, 
+      D_Title, D_Time, D_Author, 
+      D_Source, D_Picture, D_Editor, 
+      D_Num, D_Count, D_Recycle, 
+      D_RecycleTime, keyword, descrip, 
+      S_SoftDown1, setorder, D_Content, 
+      D_OriginalFileName, D_SaveFileName, 
+      D_SavePathFileName)
+    values (#{dId,jdbcType=INTEGER}, #{dClassid,jdbcType=INTEGER}, #{dClassname,jdbcType=VARCHAR}, 
+      #{dTitle,jdbcType=VARCHAR}, #{dTime,jdbcType=TIMESTAMP}, #{dAuthor,jdbcType=VARCHAR}, 
+      #{dSource,jdbcType=VARCHAR}, #{dPicture,jdbcType=VARCHAR}, #{dEditor,jdbcType=VARCHAR}, 
+      #{dNum,jdbcType=INTEGER}, #{dCount,jdbcType=INTEGER}, #{dRecycle,jdbcType=TINYINT}, 
+      #{dRecycletime,jdbcType=TIMESTAMP}, #{keyword,jdbcType=VARCHAR}, #{descrip,jdbcType=VARCHAR}, 
+      #{sSoftdown1,jdbcType=VARCHAR}, #{setorder,jdbcType=VARCHAR}, #{dContent,jdbcType=LONGVARCHAR}, 
+      #{dOriginalfilename,jdbcType=LONGVARCHAR}, #{dSavefilename,jdbcType=LONGVARCHAR}, 
+      #{dSavepathfilename,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yangqisi.pojo.NewsdataWithBLOBs" >
+    insert into newsdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        D_ID,
+      </if>
+      <if test="dClassid != null" >
+        D_ClassID,
+      </if>
+      <if test="dClassname != null" >
+        D_ClassName,
+      </if>
+      <if test="dTitle != null" >
+        D_Title,
+      </if>
+      <if test="dTime != null" >
+        D_Time,
+      </if>
+      <if test="dAuthor != null" >
+        D_Author,
+      </if>
+      <if test="dSource != null" >
+        D_Source,
+      </if>
+      <if test="dPicture != null" >
+        D_Picture,
+      </if>
+      <if test="dEditor != null" >
+        D_Editor,
+      </if>
+      <if test="dNum != null" >
+        D_Num,
+      </if>
+      <if test="dCount != null" >
+        D_Count,
+      </if>
+      <if test="dRecycle != null" >
+        D_Recycle,
+      </if>
+      <if test="dRecycletime != null" >
+        D_RecycleTime,
+      </if>
+      <if test="keyword != null" >
+        keyword,
+      </if>
+      <if test="descrip != null" >
+        descrip,
+      </if>
+      <if test="sSoftdown1 != null" >
+        S_SoftDown1,
+      </if>
+      <if test="setorder != null" >
+        setorder,
+      </if>
+      <if test="dContent != null" >
+        D_Content,
+      </if>
+      <if test="dOriginalfilename != null" >
+        D_OriginalFileName,
+      </if>
+      <if test="dSavefilename != null" >
+        D_SaveFileName,
+      </if>
+      <if test="dSavepathfilename != null" >
+        D_SavePathFileName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="dClassid != null" >
+        #{dClassid,jdbcType=INTEGER},
+      </if>
+      <if test="dClassname != null" >
+        #{dClassname,jdbcType=VARCHAR},
+      </if>
+      <if test="dTitle != null" >
+        #{dTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dTime != null" >
+        #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dAuthor != null" >
+        #{dAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="dSource != null" >
+        #{dSource,jdbcType=VARCHAR},
+      </if>
+      <if test="dPicture != null" >
+        #{dPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="dEditor != null" >
+        #{dEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="dNum != null" >
+        #{dNum,jdbcType=INTEGER},
+      </if>
+      <if test="dCount != null" >
+        #{dCount,jdbcType=INTEGER},
+      </if>
+      <if test="dRecycle != null" >
+        #{dRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="dRecycletime != null" >
+        #{dRecycletime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="keyword != null" >
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="descrip != null" >
+        #{descrip,jdbcType=VARCHAR},
+      </if>
+      <if test="sSoftdown1 != null" >
+        #{sSoftdown1,jdbcType=VARCHAR},
+      </if>
+      <if test="setorder != null" >
+        #{setorder,jdbcType=VARCHAR},
+      </if>
+      <if test="dContent != null" >
+        #{dContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dOriginalfilename != null" >
+        #{dOriginalfilename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dSavefilename != null" >
+        #{dSavefilename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dSavepathfilename != null" >
+        #{dSavepathfilename,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yangqisi.pojo.NewsdataExample" resultType="java.lang.Integer" >
+    select count(*) from newsdata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update newsdata
+    <set >
+      <if test="record.dId != null" >
+        D_ID = #{record.dId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dClassid != null" >
+        D_ClassID = #{record.dClassid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dClassname != null" >
+        D_ClassName = #{record.dClassname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dTitle != null" >
+        D_Title = #{record.dTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dTime != null" >
+        D_Time = #{record.dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dAuthor != null" >
+        D_Author = #{record.dAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dSource != null" >
+        D_Source = #{record.dSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dPicture != null" >
+        D_Picture = #{record.dPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dEditor != null" >
+        D_Editor = #{record.dEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dNum != null" >
+        D_Num = #{record.dNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.dCount != null" >
+        D_Count = #{record.dCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.dRecycle != null" >
+        D_Recycle = #{record.dRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="record.dRecycletime != null" >
+        D_RecycleTime = #{record.dRecycletime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.keyword != null" >
+        keyword = #{record.keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descrip != null" >
+        descrip = #{record.descrip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sSoftdown1 != null" >
+        S_SoftDown1 = #{record.sSoftdown1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setorder != null" >
+        setorder = #{record.setorder,jdbcType=VARCHAR},
+      </if>
+      <!-- add by daihj start -->
+      <if test="record.dContent != null" >
+        D_Content = #{record.dContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dOriginalfilename != null" >
+        D_OriginalFileName = #{record.dOriginalfilename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dSavefilename != null" >
+        D_SaveFileName = #{record.dSavefilename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dSavepathfilename != null" >
+        D_SavePathFileName = #{record.dSavepathfilename,jdbcType=LONGVARCHAR},
+      </if>
+      <!-- add by daihj end -->
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update newsdata
+    set D_ID = #{record.dId,jdbcType=INTEGER},
+      D_ClassID = #{record.dClassid,jdbcType=INTEGER},
+      D_ClassName = #{record.dClassname,jdbcType=VARCHAR},
+      D_Title = #{record.dTitle,jdbcType=VARCHAR},
+      D_Time = #{record.dTime,jdbcType=TIMESTAMP},
+      D_Author = #{record.dAuthor,jdbcType=VARCHAR},
+      D_Source = #{record.dSource,jdbcType=VARCHAR},
+      D_Picture = #{record.dPicture,jdbcType=VARCHAR},
+      D_Editor = #{record.dEditor,jdbcType=VARCHAR},
+      D_Num = #{record.dNum,jdbcType=INTEGER},
+      D_Count = #{record.dCount,jdbcType=INTEGER},
+      D_Recycle = #{record.dRecycle,jdbcType=TINYINT},
+      D_RecycleTime = #{record.dRecycletime,jdbcType=TIMESTAMP},
+      keyword = #{record.keyword,jdbcType=VARCHAR},
+      descrip = #{record.descrip,jdbcType=VARCHAR},
+      S_SoftDown1 = #{record.sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{record.setorder,jdbcType=VARCHAR},
+      D_Content = #{record.dContent,jdbcType=LONGVARCHAR},
+      D_OriginalFileName = #{record.dOriginalfilename,jdbcType=LONGVARCHAR},
+      D_SaveFileName = #{record.dSavefilename,jdbcType=LONGVARCHAR},
+      D_SavePathFileName = #{record.dSavepathfilename,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update newsdata
+    set D_ID = #{record.dId,jdbcType=INTEGER},
+      D_ClassID = #{record.dClassid,jdbcType=INTEGER},
+      D_ClassName = #{record.dClassname,jdbcType=VARCHAR},
+      D_Title = #{record.dTitle,jdbcType=VARCHAR},
+      D_Time = #{record.dTime,jdbcType=TIMESTAMP},
+      D_Author = #{record.dAuthor,jdbcType=VARCHAR},
+      D_Source = #{record.dSource,jdbcType=VARCHAR},
+      D_Picture = #{record.dPicture,jdbcType=VARCHAR},
+      D_Editor = #{record.dEditor,jdbcType=VARCHAR},
+      D_Num = #{record.dNum,jdbcType=INTEGER},
+      D_Count = #{record.dCount,jdbcType=INTEGER},
+      D_Recycle = #{record.dRecycle,jdbcType=TINYINT},
+      D_RecycleTime = #{record.dRecycletime,jdbcType=TIMESTAMP},
+      keyword = #{record.keyword,jdbcType=VARCHAR},
+      descrip = #{record.descrip,jdbcType=VARCHAR},
+      S_SoftDown1 = #{record.sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{record.setorder,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yangqisi.pojo.NewsdataWithBLOBs" >
+    update newsdata
+    <set >
+      <if test="dClassid != null" >
+        D_ClassID = #{dClassid,jdbcType=INTEGER},
+      </if>
+      <if test="dClassname != null" >
+        D_ClassName = #{dClassname,jdbcType=VARCHAR},
+      </if>
+      <if test="dTitle != null" >
+        D_Title = #{dTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dTime != null" >
+        D_Time = #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dAuthor != null" >
+        D_Author = #{dAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="dSource != null" >
+        D_Source = #{dSource,jdbcType=VARCHAR},
+      </if>
+      <if test="dPicture != null" >
+        D_Picture = #{dPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="dEditor != null" >
+        D_Editor = #{dEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="dNum != null" >
+        D_Num = #{dNum,jdbcType=INTEGER},
+      </if>
+      <if test="dCount != null" >
+        D_Count = #{dCount,jdbcType=INTEGER},
+      </if>
+      <if test="dRecycle != null" >
+        D_Recycle = #{dRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="dRecycletime != null" >
+        D_RecycleTime = #{dRecycletime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="keyword != null" >
+        keyword = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="descrip != null" >
+        descrip = #{descrip,jdbcType=VARCHAR},
+      </if>
+      <if test="sSoftdown1 != null" >
+        S_SoftDown1 = #{sSoftdown1,jdbcType=VARCHAR},
+      </if>
+      <if test="setorder != null" >
+        setorder = #{setorder,jdbcType=VARCHAR},
+      </if>
+      <if test="dContent != null" >
+        D_Content = #{dContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dOriginalfilename != null" >
+        D_OriginalFileName = #{dOriginalfilename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dSavefilename != null" >
+        D_SaveFileName = #{dSavefilename,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dSavepathfilename != null" >
+        D_SavePathFileName = #{dSavepathfilename,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where D_ID = #{dId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yangqisi.pojo.NewsdataWithBLOBs" >
+    update newsdata
+    set D_ClassID = #{dClassid,jdbcType=INTEGER},
+      D_ClassName = #{dClassname,jdbcType=VARCHAR},
+      D_Title = #{dTitle,jdbcType=VARCHAR},
+      D_Time = #{dTime,jdbcType=TIMESTAMP},
+      D_Author = #{dAuthor,jdbcType=VARCHAR},
+      D_Source = #{dSource,jdbcType=VARCHAR},
+      D_Picture = #{dPicture,jdbcType=VARCHAR},
+      D_Editor = #{dEditor,jdbcType=VARCHAR},
+      D_Num = #{dNum,jdbcType=INTEGER},
+      D_Count = #{dCount,jdbcType=INTEGER},
+      D_Recycle = #{dRecycle,jdbcType=TINYINT},
+      D_RecycleTime = #{dRecycletime,jdbcType=TIMESTAMP},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      descrip = #{descrip,jdbcType=VARCHAR},
+      S_SoftDown1 = #{sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{setorder,jdbcType=VARCHAR},
+      D_Content = #{dContent,jdbcType=LONGVARCHAR},
+      D_OriginalFileName = #{dOriginalfilename,jdbcType=LONGVARCHAR},
+      D_SaveFileName = #{dSavefilename,jdbcType=LONGVARCHAR},
+      D_SavePathFileName = #{dSavepathfilename,jdbcType=LONGVARCHAR}
+    where D_ID = #{dId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yangqisi.pojo.Newsdata" >
+    update newsdata
+    set D_ClassID = #{dClassid,jdbcType=INTEGER},
+      D_ClassName = #{dClassname,jdbcType=VARCHAR},
+      D_Title = #{dTitle,jdbcType=VARCHAR},
+      D_Time = #{dTime,jdbcType=TIMESTAMP},
+      D_Author = #{dAuthor,jdbcType=VARCHAR},
+      D_Source = #{dSource,jdbcType=VARCHAR},
+      D_Picture = #{dPicture,jdbcType=VARCHAR},
+      D_Editor = #{dEditor,jdbcType=VARCHAR},
+      D_Num = #{dNum,jdbcType=INTEGER},
+      D_Count = #{dCount,jdbcType=INTEGER},
+      D_Recycle = #{dRecycle,jdbcType=TINYINT},
+      D_RecycleTime = #{dRecycletime,jdbcType=TIMESTAMP},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      descrip = #{descrip,jdbcType=VARCHAR},
+      S_SoftDown1 = #{sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{setorder,jdbcType=VARCHAR}
+    where D_ID = #{dId,jdbcType=INTEGER}
+  </update>
+</mapper>

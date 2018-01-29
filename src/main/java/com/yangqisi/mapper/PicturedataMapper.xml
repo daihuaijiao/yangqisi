@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangqisi.mapper.PicturedataMapper" >
+  <resultMap id="BaseResultMap" type="com.yangqisi.pojo.Picturedata" >
+    <id column="P_ID" property="pId" jdbcType="INTEGER" />
+    <result column="P_PictureName" property="pPicturename" jdbcType="VARCHAR" />
+    <result column="P_PictureClassID" property="pPictureclassid" jdbcType="INTEGER" />
+    <result column="P_PictureUrlS" property="pPictureurls" jdbcType="VARCHAR" />
+    <result column="P_PictureUrlB" property="pPictureurlb" jdbcType="VARCHAR" />
+    <result column="P_PictureAddTime" property="pPictureaddtime" jdbcType="TIMESTAMP" />
+    <result column="P_Editor" property="pEditor" jdbcType="VARCHAR" />
+    <result column="P_Recycle" property="pRecycle" jdbcType="TINYINT" />
+    <result column="P_RecycleTime" property="pRecycletime" jdbcType="TIMESTAMP" />
+    <result column="top" property="top" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="S_SoftDown1" property="sSoftdown1" jdbcType="VARCHAR" />
+    <result column="setorder" property="setorder" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yangqisi.pojo.Picturedata" extends="BaseResultMap" >
+    <result column="P_PictureDesc" property="pPicturedesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    P_ID, P_PictureName, P_PictureClassID, P_PictureUrlS, P_PictureUrlB, P_PictureAddTime, 
+    P_Editor, P_Recycle, P_RecycleTime, top, orderid, S_SoftDown1, setorder
+  </sql>
+  <sql id="Blob_Column_List" >
+    P_PictureDesc
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yangqisi.pojo.PicturedataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from picturedata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yangqisi.pojo.PicturedataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from picturedata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from picturedata
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from picturedata
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yangqisi.pojo.PicturedataExample" >
+    delete from picturedata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yangqisi.pojo.Picturedata" >
+    insert into picturedata (P_ID, P_PictureName, P_PictureClassID, 
+      P_PictureUrlS, P_PictureUrlB, P_PictureAddTime, 
+      P_Editor, P_Recycle, P_RecycleTime, 
+      top, orderid, S_SoftDown1, 
+      setorder, P_PictureDesc)
+    values (#{pId,jdbcType=INTEGER}, #{pPicturename,jdbcType=VARCHAR}, #{pPictureclassid,jdbcType=INTEGER}, 
+      #{pPictureurls,jdbcType=VARCHAR}, #{pPictureurlb,jdbcType=VARCHAR}, #{pPictureaddtime,jdbcType=TIMESTAMP}, 
+      #{pEditor,jdbcType=VARCHAR}, #{pRecycle,jdbcType=TINYINT}, #{pRecycletime,jdbcType=TIMESTAMP}, 
+      #{top,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{sSoftdown1,jdbcType=VARCHAR}, 
+      #{setorder,jdbcType=VARCHAR}, #{pPicturedesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yangqisi.pojo.Picturedata" >
+    insert into picturedata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        P_ID,
+      </if>
+      <if test="pPicturename != null" >
+        P_PictureName,
+      </if>
+      <if test="pPictureclassid != null" >
+        P_PictureClassID,
+      </if>
+      <if test="pPictureurls != null" >
+        P_PictureUrlS,
+      </if>
+      <if test="pPictureurlb != null" >
+        P_PictureUrlB,
+      </if>
+      <if test="pPictureaddtime != null" >
+        P_PictureAddTime,
+      </if>
+      <if test="pEditor != null" >
+        P_Editor,
+      </if>
+      <if test="pRecycle != null" >
+        P_Recycle,
+      </if>
+      <if test="pRecycletime != null" >
+        P_RecycleTime,
+      </if>
+      <if test="top != null" >
+        top,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="sSoftdown1 != null" >
+        S_SoftDown1,
+      </if>
+      <if test="setorder != null" >
+        setorder,
+      </if>
+      <if test="pPicturedesc != null" >
+        P_PictureDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pPicturename != null" >
+        #{pPicturename,jdbcType=VARCHAR},
+      </if>
+      <if test="pPictureclassid != null" >
+        #{pPictureclassid,jdbcType=INTEGER},
+      </if>
+      <if test="pPictureurls != null" >
+        #{pPictureurls,jdbcType=VARCHAR},
+      </if>
+      <if test="pPictureurlb != null" >
+        #{pPictureurlb,jdbcType=VARCHAR},
+      </if>
+      <if test="pPictureaddtime != null" >
+        #{pPictureaddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pEditor != null" >
+        #{pEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="pRecycle != null" >
+        #{pRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="pRecycletime != null" >
+        #{pRecycletime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="top != null" >
+        #{top,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="sSoftdown1 != null" >
+        #{sSoftdown1,jdbcType=VARCHAR},
+      </if>
+      <if test="setorder != null" >
+        #{setorder,jdbcType=VARCHAR},
+      </if>
+      <if test="pPicturedesc != null" >
+        #{pPicturedesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yangqisi.pojo.PicturedataExample" resultType="java.lang.Integer" >
+    select count(*) from picturedata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update picturedata
+    <set >
+      <if test="record.pId != null" >
+        P_ID = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pPicturename != null" >
+        P_PictureName = #{record.pPicturename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPictureclassid != null" >
+        P_PictureClassID = #{record.pPictureclassid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pPictureurls != null" >
+        P_PictureUrlS = #{record.pPictureurls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPictureurlb != null" >
+        P_PictureUrlB = #{record.pPictureurlb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPictureaddtime != null" >
+        P_PictureAddTime = #{record.pPictureaddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pEditor != null" >
+        P_Editor = #{record.pEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pRecycle != null" >
+        P_Recycle = #{record.pRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="record.pRecycletime != null" >
+        P_RecycleTime = #{record.pRecycletime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.top != null" >
+        top = #{record.top,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sSoftdown1 != null" >
+        S_SoftDown1 = #{record.sSoftdown1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setorder != null" >
+        setorder = #{record.setorder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPicturedesc != null" >
+        P_PictureDesc = #{record.pPicturedesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update picturedata
+    set P_ID = #{record.pId,jdbcType=INTEGER},
+      P_PictureName = #{record.pPicturename,jdbcType=VARCHAR},
+      P_PictureClassID = #{record.pPictureclassid,jdbcType=INTEGER},
+      P_PictureUrlS = #{record.pPictureurls,jdbcType=VARCHAR},
+      P_PictureUrlB = #{record.pPictureurlb,jdbcType=VARCHAR},
+      P_PictureAddTime = #{record.pPictureaddtime,jdbcType=TIMESTAMP},
+      P_Editor = #{record.pEditor,jdbcType=VARCHAR},
+      P_Recycle = #{record.pRecycle,jdbcType=TINYINT},
+      P_RecycleTime = #{record.pRecycletime,jdbcType=TIMESTAMP},
+      top = #{record.top,jdbcType=VARCHAR},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      S_SoftDown1 = #{record.sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{record.setorder,jdbcType=VARCHAR},
+      P_PictureDesc = #{record.pPicturedesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update picturedata
+    set P_ID = #{record.pId,jdbcType=INTEGER},
+      P_PictureName = #{record.pPicturename,jdbcType=VARCHAR},
+      P_PictureClassID = #{record.pPictureclassid,jdbcType=INTEGER},
+      P_PictureUrlS = #{record.pPictureurls,jdbcType=VARCHAR},
+      P_PictureUrlB = #{record.pPictureurlb,jdbcType=VARCHAR},
+      P_PictureAddTime = #{record.pPictureaddtime,jdbcType=TIMESTAMP},
+      P_Editor = #{record.pEditor,jdbcType=VARCHAR},
+      P_Recycle = #{record.pRecycle,jdbcType=TINYINT},
+      P_RecycleTime = #{record.pRecycletime,jdbcType=TIMESTAMP},
+      top = #{record.top,jdbcType=VARCHAR},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      S_SoftDown1 = #{record.sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{record.setorder,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yangqisi.pojo.Picturedata" >
+    update picturedata
+    <set >
+      <if test="pPicturename != null" >
+        P_PictureName = #{pPicturename,jdbcType=VARCHAR},
+      </if>
+      <if test="pPictureclassid != null" >
+        P_PictureClassID = #{pPictureclassid,jdbcType=INTEGER},
+      </if>
+      <if test="pPictureurls != null" >
+        P_PictureUrlS = #{pPictureurls,jdbcType=VARCHAR},
+      </if>
+      <if test="pPictureurlb != null" >
+        P_PictureUrlB = #{pPictureurlb,jdbcType=VARCHAR},
+      </if>
+      <if test="pPictureaddtime != null" >
+        P_PictureAddTime = #{pPictureaddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pEditor != null" >
+        P_Editor = #{pEditor,jdbcType=VARCHAR},
+      </if>
+      <if test="pRecycle != null" >
+        P_Recycle = #{pRecycle,jdbcType=TINYINT},
+      </if>
+      <if test="pRecycletime != null" >
+        P_RecycleTime = #{pRecycletime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="top != null" >
+        top = #{top,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="sSoftdown1 != null" >
+        S_SoftDown1 = #{sSoftdown1,jdbcType=VARCHAR},
+      </if>
+      <if test="setorder != null" >
+        setorder = #{setorder,jdbcType=VARCHAR},
+      </if>
+      <if test="pPicturedesc != null" >
+        P_PictureDesc = #{pPicturedesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yangqisi.pojo.Picturedata" >
+    update picturedata
+    set P_PictureName = #{pPicturename,jdbcType=VARCHAR},
+      P_PictureClassID = #{pPictureclassid,jdbcType=INTEGER},
+      P_PictureUrlS = #{pPictureurls,jdbcType=VARCHAR},
+      P_PictureUrlB = #{pPictureurlb,jdbcType=VARCHAR},
+      P_PictureAddTime = #{pPictureaddtime,jdbcType=TIMESTAMP},
+      P_Editor = #{pEditor,jdbcType=VARCHAR},
+      P_Recycle = #{pRecycle,jdbcType=TINYINT},
+      P_RecycleTime = #{pRecycletime,jdbcType=TIMESTAMP},
+      top = #{top,jdbcType=VARCHAR},
+      orderid = #{orderid,jdbcType=VARCHAR},
+      S_SoftDown1 = #{sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{setorder,jdbcType=VARCHAR},
+      P_PictureDesc = #{pPicturedesc,jdbcType=LONGVARCHAR}
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yangqisi.pojo.Picturedata" >
+    update picturedata
+    set P_PictureName = #{pPicturename,jdbcType=VARCHAR},
+      P_PictureClassID = #{pPictureclassid,jdbcType=INTEGER},
+      P_PictureUrlS = #{pPictureurls,jdbcType=VARCHAR},
+      P_PictureUrlB = #{pPictureurlb,jdbcType=VARCHAR},
+      P_PictureAddTime = #{pPictureaddtime,jdbcType=TIMESTAMP},
+      P_Editor = #{pEditor,jdbcType=VARCHAR},
+      P_Recycle = #{pRecycle,jdbcType=TINYINT},
+      P_RecycleTime = #{pRecycletime,jdbcType=TIMESTAMP},
+      top = #{top,jdbcType=VARCHAR},
+      orderid = #{orderid,jdbcType=VARCHAR},
+      S_SoftDown1 = #{sSoftdown1,jdbcType=VARCHAR},
+      setorder = #{setorder,jdbcType=VARCHAR}
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>
